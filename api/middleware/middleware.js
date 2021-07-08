@@ -1,5 +1,4 @@
 const Users = require('../users/users-model')
-const Posts = require('../posts/posts-model')
 
 function logger(req, res, next) {
   console.log(`${req.method} request`)
@@ -31,7 +30,11 @@ function validateUser(req, res, next) {
 }
 
 function validatePost(req, res, next) {
-  // DO YOUR MAGIC
+  if (!req.body.text) {
+    res.status(400).json({ message: 'missing required text field' })
+  } else {
+    next()
+  }
 }
 
 //MAYBE ADD A ERROR HANDLING MIDDLEWARE
